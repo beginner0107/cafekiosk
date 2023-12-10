@@ -11,9 +11,19 @@ import sample.cafekiosk.unit.order.Order;
 public class CafeKiosk {
 
   private final List<Beverage> beverages = new ArrayList<>();
+  public final static String ORDER_MORE_THAN_ONE_DRINK = "음료는 1잔 이상 주문하실 수 있습니다.";
 
   public void add(Beverage beverage) {
     beverages.add(beverage);
+  }
+
+  public void add(Beverage beverage, int count) {
+    if (count <= 0) {
+      throw new IllegalArgumentException(ORDER_MORE_THAN_ONE_DRINK);
+    }
+    for (int i = 0; i < count; i++) {
+      beverages.add(beverage);
+    }
   }
 
   public void remove(Beverage beverage) {
