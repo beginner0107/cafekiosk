@@ -2,7 +2,7 @@ package sample.cafekiosk.unit;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static sample.cafekiosk.unit.CafeKiosk.*;
+import static sample.cafekiosk.unit.CafeKiosk.NOT_ORDER_TIME;
 import static sample.cafekiosk.unit.CafeKiosk.ORDER_MORE_THAN_ONE_DRINK;
 
 import java.time.LocalDateTime;
@@ -84,9 +84,10 @@ class CafeKioskTest {
     assertThat(cafeKiosk.getBeverages()).isEmpty();
   }
 
-  @DisplayName("여러 개의 음료를 추가한 뒤, 음료 가격의 총합을 확인할 수 있다.")
+  @DisplayName("주문 목록에 담긴 상품들의 총 금액을 계산할 수 있다.")
   @Test
   void calculateTotalPrice() {
+    // given
     CafeKiosk cafeKiosk = new CafeKiosk();
     Americano americano = new Americano();
     Latte latte = new Latte();
@@ -94,8 +95,10 @@ class CafeKioskTest {
     cafeKiosk.add(americano);
     cafeKiosk.add(latte);
 
+    // when
     int totalPrice = cafeKiosk.calculateTotalPrice();
 
+    // then
     assertThat(totalPrice).isEqualTo(8500);
   }
 
