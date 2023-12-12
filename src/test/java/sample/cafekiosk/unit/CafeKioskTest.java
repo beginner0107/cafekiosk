@@ -6,6 +6,7 @@ import static sample.cafekiosk.unit.CafeKiosk.*;
 import static sample.cafekiosk.unit.CafeKiosk.ORDER_MORE_THAN_ONE_DRINK;
 
 import java.time.LocalDateTime;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import sample.cafekiosk.unit.beverage.Americano;
 import sample.cafekiosk.unit.beverage.Latte;
@@ -22,6 +23,7 @@ class CafeKioskTest {
     System.out.println(">>> 담긴 음료 : " + cafeKiosk.getBeverages().get(0).getName());
   }
 
+  @DisplayName("음료 1개를 추가하면 주문 목록에 담긴다.")
   @Test
   void add() {
     CafeKiosk cafeKiosk = new CafeKiosk();
@@ -31,6 +33,7 @@ class CafeKioskTest {
     assertThat(cafeKiosk.getBeverages().get(0).getName()).isEqualTo("아메리카노");
   }
 
+  @DisplayName("음료를 여러개 추가하면 주문 목록에 담긴다.")
   @Test
   void addSeveralBeverages() {
     CafeKiosk cafeKiosk = new CafeKiosk();
@@ -42,6 +45,7 @@ class CafeKioskTest {
     assertThat(cafeKiosk.getBeverages().get(0)).isEqualTo(americano);
   }
 
+  @DisplayName("음료의 개수를 입력하지 않으면 주문을 생성할 수 없다.")
   @Test
   void addZeroBeverages() {
     CafeKiosk cafeKiosk = new CafeKiosk();
@@ -52,6 +56,7 @@ class CafeKioskTest {
         .hasMessage(ORDER_MORE_THAN_ONE_DRINK);
   }
 
+  @DisplayName("음료를 추가한 후, 추가된 음료 한 건을 제거할 수 있다.")
   @Test
   void remove() {
     CafeKiosk cafeKiosk = new CafeKiosk();
@@ -64,6 +69,7 @@ class CafeKioskTest {
     assertThat(cafeKiosk.getBeverages()).isEmpty();
   }
 
+  @DisplayName("여러 개의 음료를 추가한 후, 음료 목록들을 제거할 수 있다.")
   @Test
   void clear() {
     CafeKiosk cafeKiosk = new CafeKiosk();
@@ -78,6 +84,7 @@ class CafeKioskTest {
     assertThat(cafeKiosk.getBeverages()).isEmpty();
   }
 
+  @DisplayName("여러 개의 음료를 추가한 뒤, 음료 가격의 총합을 확인할 수 있다.")
   @Test
   void calculateTotalPrice() {
     CafeKiosk cafeKiosk = new CafeKiosk();
@@ -92,6 +99,7 @@ class CafeKioskTest {
     assertThat(totalPrice).isEqualTo(8500);
   }
 
+  @DisplayName("음료를 1개 추가하면 주문목록에 담긴다.")
   @Test
   void createOrder() {
     CafeKiosk cafeKiosk = new CafeKiosk();
@@ -105,6 +113,7 @@ class CafeKioskTest {
     assertThat(order.getBeverages().get(0).getName()).isEqualTo("아메리카노");
   }
 
+  @DisplayName("영업 시작 시간과 종료 시간 이전에는 주문을 생성할 수 있다.")
   @Test
   void createOrderWithCurrentTime() {
     CafeKiosk cafeKiosk = new CafeKiosk();
@@ -118,6 +127,7 @@ class CafeKioskTest {
     assertThat(order.getBeverages().get(0).getName()).isEqualTo("아메리카노");
   }
 
+  @DisplayName("영업 시작 시간 이전에는 주문을 생성할 수 없다.")
   @Test
   void createOrderWithOutsideOpenTime() {
     CafeKiosk cafeKiosk = new CafeKiosk();
