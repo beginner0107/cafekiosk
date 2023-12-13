@@ -22,7 +22,7 @@ public class Product {
   @Enumerated(STRING)
   private ProductType type;
   @Enumerated(STRING)
-  private ProductSellingType sellingType;
+  private ProductSellingStatus sellingStatus;
   private String name;
   private int price;
 
