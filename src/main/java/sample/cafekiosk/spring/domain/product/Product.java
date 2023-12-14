@@ -11,11 +11,12 @@ import javax.persistence.Id;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import sample.cafekiosk.spring.domain.BaseEntity;
 
 @Entity
 @NoArgsConstructor(access = PROTECTED)
 @Getter
-public class Product {
+public class Product extends BaseEntity {
 
   @Id @GeneratedValue(strategy = IDENTITY)
   private Long id;
