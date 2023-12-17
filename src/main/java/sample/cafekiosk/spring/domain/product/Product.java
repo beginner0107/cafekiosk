@@ -11,8 +11,9 @@ import javax.persistence.Id;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import sample.cafekiosk.spring.domain.BaseEntity;
-
+@ToString
 @Entity
 @NoArgsConstructor(access = PROTECTED)
 @Getter
