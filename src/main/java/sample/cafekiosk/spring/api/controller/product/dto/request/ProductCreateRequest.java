@@ -2,11 +2,13 @@ package sample.cafekiosk.spring.api.controller.product.dto.request;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import sample.cafekiosk.spring.domain.product.Product;
 import sample.cafekiosk.spring.domain.product.ProductSellingStatus;
 import sample.cafekiosk.spring.domain.product.ProductType;
 
 @Getter
+@NoArgsConstructor
 public class ProductCreateRequest {
 
   private ProductType type;
@@ -33,3 +35,4 @@ public class ProductCreateRequest {
         .build();
   }
 }
+

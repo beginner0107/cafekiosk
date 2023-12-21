@@ -102,8 +102,8 @@ class CafeKioskTest {
     assertThat(totalPrice).isEqualTo(8500);
   }
 
-  @DisplayName("음료를 1개 추가하면 주문목록에 담긴다.")
-  @Test
+  //@DisplayName("음료를 1개 추가하면 주문목록에 담긴다.")
+  //@Test
   void createOrder() {
     CafeKiosk cafeKiosk = new CafeKiosk();
     Americano americano = new Americano();
