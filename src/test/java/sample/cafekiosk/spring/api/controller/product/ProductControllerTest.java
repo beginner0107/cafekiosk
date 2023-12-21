@@ -13,7 +13,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import sample.cafekiosk.spring.api.controller.product.dto.request.ProductCreateRequest;
 import sample.cafekiosk.spring.api.service.product.ProductService;
-import sample.cafekiosk.spring.api.service.product.response.ProductResponse;
 import sample.cafekiosk.spring.domain.product.ProductSellingStatus;
 import sample.cafekiosk.spring.domain.product.ProductType;
 
