@@ -1,22 +1,21 @@
 package sample.cafekiosk.spring.api.service.order;
 
-import static java.util.stream.Collectors.*;
+import static java.util.stream.Collectors.counting;
+import static java.util.stream.Collectors.groupingBy;
+import static java.util.stream.Collectors.toList;
+import static java.util.stream.Collectors.toMap;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import sample.cafekiosk.spring.api.service.order.request.OrderCreateRequest;
+import sample.cafekiosk.spring.api.service.order.request.OrderCreateServiceRequest;
 import sample.cafekiosk.spring.api.service.order.response.OrderResponse;
-import sample.cafekiosk.spring.api.service.product.response.ProductResponse;
 import sample.cafekiosk.spring.domain.order.Order;
 import sample.cafekiosk.spring.domain.order.OrderRepository;
-import sample.cafekiosk.spring.domain.orderProduct.OrderProduct;
 import sample.cafekiosk.spring.domain.product.Product;
 import sample.cafekiosk.spring.domain.product.ProductRepository;
 import sample.cafekiosk.spring.domain.product.ProductType;
@@ -36,7 +35,7 @@ public class OrderService {
    * 재고 감소 -> 동시성 문제
    * optimistic lock / pessimistic lock / ...
    */
-  public OrderResponse createOrder(OrderCreateRequest request, LocalDateTime registeredDateTime) {
+  public OrderResponse createOrder(OrderCreateServiceRequest request, LocalDateTime registeredDateTime) {
     List<String> productNumbers = request.getProductNumbers();
     List<Product> products = findProductsBy(productNumbers);
 

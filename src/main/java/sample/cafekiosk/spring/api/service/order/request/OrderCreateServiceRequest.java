@@ -10,7 +10,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 @Getter
-public class OrderCreateRequest {
+public class OrderCreateServiceRequest {
 
   private List<String> productNumbers;
+
+  public static OrderCreateServiceRequest of(List<String> productNumbers) {
+    return OrderCreateServiceRequest.builder()
+        .productNumbers(productNumbers)
+        .build();
+  }
 }
