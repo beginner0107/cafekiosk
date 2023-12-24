@@ -28,35 +28,46 @@ class OrderRepositoryTest {
   @Test
   void findOrdersBy() {
     // given
-    Order order = createOrderAndOrderStatusComplete(OrderStatus.COMPLETE);
+    LocalDateTime now = LocalDateTime.of(2023, 12, 2, 10, 0);
+
+    Product product1 = createProduct("001", 1000);
+    Product product2 = createProduct("002", 2000);
+    Product product3 = createProduct("003", 3000);
+    productRepository.saveAll(List.of(product1, product2, product3));
+
+    List<Product> products = List.of(product1, product2, product3);
+    Order order1 = createPaymentCompletedOrder(LocalDateTime.of(2023, 12, 1, 23, 59, 59), products);
+    Order order2 = createPaymentCompletedOrder(now, products);
+    Order order3 = createPaymentCompletedOrder(LocalDateTime.of(2023, 12, 2, 23, 59, 59), products);
+    Order order4 = createPaymentCompletedOrder(LocalDateTime.of(2023, 12, 3, 0, 0), products);
+    LocalDate orderDate = LocalDate.of(2023, 12, 2);
 
     // when
     List<Order> orders = orderRepository.findOrdersBy(
-        LocalDate.now().atStartOfDay(),
-        LocalDate.now().plusDays(1).atStartOfDay(),
+        orderDate.atStartOfDay(),
+        orderDate.plusDays(1).atStartOfDay(),
         OrderStatus.COMPLETE
     );
 
     // then
-    assertThat(orders).hasSize(1);
+    assertThat(orders).hasSize(2);
     assertThat(orders.get(0).getOrderStatus()).isEqualTo(OrderStatus.COMPLETE);
-    assertThat(orders.get(0).getRegisteredDateTime()).isEqualTo(order.getRegisteredDateTime());
+    assertThat(orders.get(0).getRegisteredDateTime()).isEqualTo(now);
+    assertThat(orders.get(1).getOrderStatus()).isEqualTo(OrderStatus.COMPLETE);
+    assertThat(orders.get(1).getRegisteredDateTime()).isEqualTo(
+        LocalDateTime.of(2023, 12, 2, 23, 59, 59));
   }
 
-  private Order createOrderAndOrderStatusComplete(OrderStatus orderStatus) {
-    List<Product> products = List.of(
-        createProduct("001", 1000),
-        createProduct("002", 2000)
-    );
-    productRepository.saveAll(products);
-
-    LocalDateTime registeredDateTime = LocalDateTime.now();
-    Order order = Order.create(products, registeredDateTime);
-    order.changeOrderStatus(orderStatus);
+  private Order createPaymentCompletedOrder(LocalDateTime now, List<Product> products) {
+    Order order = Order.builder()
+        .products(products)
+        .orderStatus(OrderStatus.COMPLETE)
+        .registeredDateTime(now)
+        .build();
     orderRepository.save(order);
-
     return order;
   }
+
 
   private Product createProduct(String productNumber, int price) {
     return Product.builder()
@@ -64,7 +75,7 @@ class OrderRepositoryTest {
         .productNumber(productNumber)
         .price(price)
         .sellingStatus(SELLING)
-        .name("메뉴이름")
+        .name("메뉴 이름")
         .build();
   }
 }
