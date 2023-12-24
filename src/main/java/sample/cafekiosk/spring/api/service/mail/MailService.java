@@ -17,7 +17,7 @@ public class MailService {
 
     boolean result = mailSendClient.sendEmail(fromEmail, toEmail, subject, content);
     if (result) {
-      MailSendHistory history = mailSendHistoryRepository.save(MailSendHistory.builder()
+      mailSendHistoryRepository.save(MailSendHistory.builder()
           .fromEmail(fromEmail)
           .toEmail(toEmail)
           .subject(subject)
