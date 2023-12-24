@@ -14,6 +14,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import sample.cafekiosk.spring.domain.BaseEntity;
@@ -39,8 +40,9 @@ public class Order extends BaseEntity {
   @OneToMany(mappedBy = "order", cascade = ALL)
   private List<OrderProduct> orderProducts;
 
-  public Order(List<Product> products, LocalDateTime registeredDateTime) {
-    this.orderStatus = OrderStatus.INIT;
+  @Builder
+  public Order(List<Product> products, OrderStatus orderStatus, LocalDateTime registeredDateTime) {
+    this.orderStatus = orderStatus;
     this.totalPrice = calculateTotalPrice(products);
     this.registeredDateTime = registeredDateTime;
     this.orderProducts = products.stream()
@@ -49,12 +51,20 @@ public class Order extends BaseEntity {
   }
 
   public static Order create(List<Product> products, LocalDateTime registeredDateTime) {
-    return new Order(products, registeredDateTime);
+    return Order.builder()
+        .orderStatus(OrderStatus.INIT)
+        .products(products)
+        .registeredDateTime(registeredDateTime)
+        .build();
   }
 
   private int calculateTotalPrice(List<Product> products) {
     return products.stream()
         .mapToInt(Product::getPrice)
         .sum();
+  }
+
+  public void changeOrderStatus(OrderStatus orderStatus) {
+    this.orderStatus = orderStatus;
   }
 }

@@ -45,7 +45,7 @@ class OrderTest {
     assertThat(order.getOrderStatus()).isEqualByComparingTo(INIT);
   }
 
-  @DisplayName("주문 생성 시 주문 등록 시간을 기록한단.")
+  @DisplayName("주문 생성 시 주문 등록 시간을 기록한다.")
   @Test
   void registeredDateTime() {
     // given

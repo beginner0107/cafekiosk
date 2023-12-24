@@ -52,4 +52,5 @@ class TwoSumTest {
         .isInstanceOf(IllegalArgumentException.class)
         .hasMessage(TARGET_NUMBER_POSITIVE);
   }
+
 }
