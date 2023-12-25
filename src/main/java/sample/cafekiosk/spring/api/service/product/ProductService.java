@@ -18,12 +18,11 @@ import sample.cafekiosk.spring.domain.product.ProductRepository;
 public class ProductService {
 
   private final ProductRepository productRepository;
+  private final ProductNumberFactory productNumberFactory;
 
-  // 동시성 이슈
-  // UUID
   @Transactional
   public ProductResponse createProduct(ProductCreateServiceRequest request) {
-    String newProductNumber = createNewProductNumber();
+    String newProductNumber = productNumberFactory.createNewProductNumber();
     Product product = request.toEntity(newProductNumber);
     Product savedProduct = productRepository.save(product);
     return ProductResponse.of(savedProduct);
@@ -35,13 +34,5 @@ public class ProductService {
     return products.stream()
         .map(ProductResponse::of)
         .collect(toList());
-  }
-
-  private String createNewProductNumber() {
-    String latestProductNumber = productRepository.findLatestProductNumber();
-    if (latestProductNumber == null) return "001";
-    int latestProductNumberInt = Integer.parseInt(latestProductNumber);
-    int nextProductNumberInt = latestProductNumberInt + 1;
-    return String.format("%03d", nextProductNumberInt);
   }
 }
