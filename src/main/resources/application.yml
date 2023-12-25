@@ -49,6 +49,11 @@ spring:
     init:
       mode: never
 
+server:
+  servlet:
+    encoding:
+      force-response: true
+
 logging:
   level:
     org.hibernate:
