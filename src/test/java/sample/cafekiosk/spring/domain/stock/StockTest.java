@@ -1,6 +1,7 @@
 package sample.cafekiosk.spring.domain.stock;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.util.Collection;
 import java.util.List;

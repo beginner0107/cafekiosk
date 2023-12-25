@@ -1,7 +1,7 @@
 package sample.cafekiosk.spring.domain.order;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static sample.cafekiosk.spring.domain.order.OrderStatus.*;
+import static sample.cafekiosk.spring.domain.order.OrderStatus.INIT;
 import static sample.cafekiosk.spring.domain.product.ProductSellingStatus.SELLING;
 import static sample.cafekiosk.spring.domain.product.ProductType.HANDMADE;
 

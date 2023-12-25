@@ -10,14 +10,13 @@ import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.context.ActiveProfiles;
+import org.springframework.transaction.annotation.Transactional;
+import sample.cafekiosk.spring.IntegrationTestSupport;
 import sample.cafekiosk.spring.domain.product.Product;
 import sample.cafekiosk.spring.domain.product.ProductRepository;
 
-@ActiveProfiles("test")
-@DataJpaTest
-class OrderRepositoryTest {
+@Transactional
+class OrderRepositoryTest extends IntegrationTestSupport {
 
   @Autowired
   private OrderRepository orderRepository;
